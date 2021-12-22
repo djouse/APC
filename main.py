@@ -2,6 +2,8 @@
 """
 Created on Wed Dec 22 14:23:51 2021
 
+Python Version: 3.8.8, using Conda
+
 @author: Daniel Girão
          Gustavo Pelayo 
          José Dias
