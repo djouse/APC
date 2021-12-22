@@ -73,6 +73,8 @@ with open('voice.csv', 'r') as file:
         n_humans = n_humans + 1
         
 file.close()
+
+print(att1)
 #print(n_humans)
 #-----------end----------#
 
