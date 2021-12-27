@@ -73,7 +73,7 @@ def data_process(filename):
             if(line[20]=='male'):
                 classes = np.append(classes, 1)
             else:
-                classes = np.append(classes, 2)
+                classes = np.append(classes, 0)
                     
             n_humans = n_humans + 1
             
@@ -86,9 +86,12 @@ def data_process(filename):
     
     #100% -> 3168 randomize every line so we don´t have males and then females
     Dataset = np.transpose(np.array([att1, att2, att3, att4, att5, att6, att7, att8, att9, att10, att11, att12, att13, att14, att15, att16, att17, att18, att19, att20, classes]))
-    #print(Dataset)
+    np.random.shuffle(Dataset)
+
+    
     #print(Dataset.shape)
     
+    classes = Dataset[:,-1]
     #50% of the dataset for training -> -1584
     X_train = np.transpose(np.array([Dataset[:1584,:20]]))
     Y_train = np.transpose(np.array([Dataset[:1584,20]]))
@@ -111,15 +114,12 @@ def data_process(filename):
     #print(Y_train.size + Y_val.size + Y_test.size)
     
     #---------end----------#
-    return X_train
+    return X_train, classes
 xtrain =  np.array([]) 
-xtrain = data_process("voice.csv")
+xtrain, classes = data_process("voice.csv")
 coef = np.array([[-0.406605464, 0.852573316, -1.104746259, -1.24353, 0.444, -0.7, 1.2, -1.3, 0.8, 1.2, 0.111, -0.111, 1.2, -1.2 , -0.333, 1.7,-2.1, -0.543, -1.4, 0.112, -0.223]])  
-print(coef.size)
-print(coef)
-coef2 = np.random.rand(1,21)
-print(coef2.size)
-print(coef2)
+print(classes)
+
 # Make a prediction with coefficients
 def predict(column, coefficients):
 	yhat = coefficients[0][0]
@@ -130,4 +130,4 @@ def predict(column, coefficients):
 for i in range(0,1584,1):
     coul = np.array((xtrain[:,i]))
     yhat = predict(coul.T, coef)
-    print("Expected=%.3f, Predicted=%.3f [%d]" % (xtrain[-1,i], yhat, round(yhat)))
+    print("Expected=%.3f, Predicted=%.3f [%d]" % (classes[i], yhat, round(yhat)))
