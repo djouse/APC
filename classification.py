@@ -40,6 +40,6 @@ X = df.drop(columns=["label"])
 print(df)
 y= df["label"]
 theta = [0.5]*len(X.columns)
-J, acc = predict(X, y, theta, 0.0001, 1000)
+J, acc = predict(X, y, theta, 0.0001, 10000)
 
 print(acc)
